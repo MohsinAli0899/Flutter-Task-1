@@ -19,8 +19,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             'Forgot Password?',
             style: TextStyle(
               color: Colors.black,
-              decoration: TextDecoration
-                  .underline, // Optional: to make it look like a link
+              decoration:
+                  TextDecoration.underline, //To Make it look like an ink
             ),
           ),
         ),

@@ -24,7 +24,7 @@ class _LoginButtonState extends State<LoginButton> {
         foregroundColor: Colors.white, // Text color
         padding: const EdgeInsets.symmetric(
           horizontal: 35,
-          vertical: 15,
+          vertical: 10,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16), // Rounded corners
