@@ -1,55 +1,93 @@
-import 'package:flutter/cupertino.dart';
+import 'package:api_integration_python/widgets/login_page_widgets/forgot_password.dart';
+import 'package:api_integration_python/widgets/login_page_widgets/login_button.dart';
+
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/login_background.jpg"),
-            fit: BoxFit.cover,
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height,
           ),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const SizedBox(height: 50),
-              Image.asset("assets/images/logo.png", width: 350, height: 350),
-              const Text(
-                "Welcome",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Colors.black),
+          child: Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/login_background.jpg"),
+                fit: BoxFit.cover,
               ),
-              const SizedBox(height: 40),
-              Padding(
+            ),
+            child: Column(
+              children: [
+                const SizedBox(height: 40),
+                Image.asset("assets/images/logo.png", width: 350, height: 350),
+                const Text(
+                  "Welcome",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Column(children: [
-                    const SizedBox(height: 50),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        labelStyle: TextStyle(color: Colors.black),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(16)),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 50),
+                      TextField(
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          labelText: 'Email',
+                          labelStyle: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 16.0),
-                    TextField(
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        labelStyle: TextStyle(color: Colors.black),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(16)),
+                      const SizedBox(height: 16.0),
+                      TextField(
+                        decoration: InputDecoration(
+                          fillColor: Colors.white,
+                          filled: true,
+                          labelText: 'Password',
+                          labelStyle: const TextStyle(
+                            color: Colors.black,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(color: Colors.red, width: 2.0),
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                        obscureText: true,
                       ),
-                      obscureText: true,
-                    )
-                  ]))
-            ],
+                      const ForgotPassword(),
+                      const SizedBox(height: 30),
+                      const LoginButton(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
