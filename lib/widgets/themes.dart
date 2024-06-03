@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class MyTheme {
@@ -16,6 +15,6 @@ class MyTheme {
       ThemeData(brightness: Brightness.dark);
 
   //Colors
-  static Color creamColor = Color(0xfff5f5f5);
-  static Color darkBlueColor = Color(0xff403b58);
+  static Color creamColor = const Color(0xfff5f5f5);
+  static Color darkBlueColor = const Color(0xff403b58);
 }
