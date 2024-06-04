@@ -34,10 +34,10 @@ class _LoginButtonState extends State<LoginButton> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(result['message'])),
+      SnackBar(content: Text(result['prompt'])),
     );
 
-    if (result['success']) {
+    if (result['prompt'] == 'Access Granted') {
       Navigator.pushNamed(context, MyRoutes.homeRoute);
     }
   }
@@ -45,7 +45,7 @@ class _LoginButtonState extends State<LoginButton> {
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 200),
       child: _isLoading
           ? const CircularProgressIndicator()
           : ElevatedButton(
