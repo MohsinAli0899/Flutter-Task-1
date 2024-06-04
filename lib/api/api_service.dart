@@ -1,25 +1,33 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 
 Future<Map<String, dynamic>> login(String username, String password) async {
-  final url = Uri.parse('http://127.0.0.1:5000/login');
-  final response = await http.post(
-    url,
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'username': username,
-      'password': password,
-    }),
-  );
+  String getBaseUrl() {
+    if (kIsWeb) {
+      // URL for web
+      return "http://127.0.0.1:5001/proxy/login/$username,$password";
+    } else {
+      // URL for Android emulator
+      return "http://10.0.2.2:5001/proxy/login/$username,$password";
+    }
+  }
+
+  final baseUrl = Uri.parse(getBaseUrl());
+  // final url =
+  //     Uri.parse('http://127.0.0.1:5000/proxy/login/$username,$password');
+
+  final response = await http.get(baseUrl);
 
   if (response.statusCode == 200) {
     return {
       "success": true,
-      "message": jsonDecode(response.body)['message'],
+      "prompt": jsonDecode(response.body)['prompt'],
     };
   } else {
-    return {"success": false, "message": jsonDecode(response.body)['message']};
+    return {
+      "success": false,
+      "prompt": jsonDecode(response.body)['Prompt'],
+    };
   }
 }
