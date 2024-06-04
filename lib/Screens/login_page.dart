@@ -4,7 +4,10 @@ import 'package:api_integration_python/widgets/login_page_widgets/login_button.d
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class LoginPage extends StatelessWidget {
                     children: [
                       const SizedBox(height: 50),
                       TextField(
+                        controller: _usernameController,
                         decoration: InputDecoration(
                           fillColor: Colors.white,
                           filled: true,
@@ -61,6 +65,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 16.0),
                       TextField(
+                        controller: _passwordController,
                         decoration: InputDecoration(
                           fillColor: Colors.white,
                           filled: true,
@@ -82,7 +87,10 @@ class LoginPage extends StatelessWidget {
                       ),
                       const ForgotPassword(),
                       const SizedBox(height: 30),
-                      const LoginButton(),
+                      LoginButton(
+                        usernameController: _usernameController,
+                        passwordController: _passwordController,
+                      ),
                     ],
                   ),
                 ),
