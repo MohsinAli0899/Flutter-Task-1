@@ -34,10 +34,10 @@ class _LoginButtonState extends State<LoginButton> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(result['prompt'])),
+      SnackBar(content: Text(result['Prompt'])),
     );
 
-    if (result['prompt'] == 'Access Granted') {
+    if (result['Prompt'] == 'Access Granted') {
       Navigator.pushNamed(context, MyRoutes.homeRoute);
     }
   }
