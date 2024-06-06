@@ -69,7 +69,7 @@ class _LoginButtonState extends State<LoginButton> {
                 backgroundColor: Colors.red, // Background color
                 foregroundColor: Colors.white, // Text color
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 35,
+                  horizontal: 80,
                   vertical: 10,
                 ),
                 shape: RoundedRectangleBorder(
