@@ -19,26 +19,34 @@ class LoginButton extends StatefulWidget {
 
 class _LoginButtonState extends State<LoginButton> {
   bool _isLoading = false;
+  bool isEmptyTextField = true;
 
   void _login(BuildContext context) async {
-    setState(() {
-      _isLoading = true;
-    });
-
     final username = widget.usernameController.text;
     final password = widget.passwordController.text;
-    final result = await login(username, password);
+    if (username.isNotEmpty && password.isNotEmpty) {
+      setState(() {
+        _isLoading = true;
+      });
 
-    setState(() {
-      _isLoading = false;
-    });
+      final result = await login(username, password);
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(result['Prompt'])),
-    );
+      setState(() {
+        _isLoading = false;
+      });
 
-    if (result['Prompt'] == 'Access Granted') {
-      Navigator.pushNamed(context, MyRoutes.homeRoute);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(result['Prompt'])),
+      );
+
+      if (result['Prompt'] == 'Access Granted') {
+        Navigator.pushNamed(context, MyRoutes.homeRoute);
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("Username or Password field Can't be empty")),
+      );
     }
   }
 
