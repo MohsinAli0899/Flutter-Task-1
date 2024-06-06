@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 40),
-                Image.asset("assets/images/logo2.png", width: 350, height: 350),
+                Image.asset("assets/images/logo.png", width: 350, height: 350),
                 const SizedBox(
                   child: Text(
                     "Welcome",
