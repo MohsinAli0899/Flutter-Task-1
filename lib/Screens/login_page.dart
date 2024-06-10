@@ -38,21 +38,22 @@ class LoginPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                      alignment: Alignment.bottomCenter,
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(60),
-                          topRight: Radius.circular(60),
-                        ),
-                        color: Colors.blue,
+                    alignment: Alignment.bottomCenter,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(60),
+                        topRight: Radius.circular(60),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: UserPassField(
-                          usernameController: _usernameController,
-                          passwordController: _passwordController,
-                        ),
-                      )),
+                      color: Colors.blue,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: UserPassField(
+                        usernameController: _usernameController,
+                        passwordController: _passwordController,
+                      ),
+                    ),
+                  ),
                 )
               ],
             ),
