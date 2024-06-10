@@ -30,3 +30,35 @@ Future<Map<String, dynamic>> login(String username, String password) async {
     };
   }
 }
+
+/*
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<Map<String, dynamic>> signUp(String email, String password) async {
+  final url = Uri.parse('https://<your-vercel-url>/signup'); // Replace with your Vercel URL
+  final response = await http.post(
+    url,
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'email': email,
+      'password': password,
+    }),
+  );
+
+  if (response.statusCode == 201) {
+    return {
+      "success": true,
+      "message": jsonDecode(response.body)['message'],
+    };
+  } else {
+    return {
+      "success": false,
+      "message": jsonDecode(response.body)['message'],
+    };
+  }
+}
+
+*/
