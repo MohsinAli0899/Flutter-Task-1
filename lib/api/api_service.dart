@@ -31,10 +31,6 @@ Future<Map<String, dynamic>> login(String username, String password) async {
   }
 }
 
-/*
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-
 Future<Map<String, dynamic>> signUp(String email, String password) async {
   final url = Uri.parse('https://<your-vercel-url>/signup');
   final response = await http.post(
@@ -61,4 +57,4 @@ Future<Map<String, dynamic>> signUp(String email, String password) async {
   }
 }
 
-*/
+
