@@ -94,7 +94,7 @@ Future<Map<String, dynamic>> signUp(String username, String password) async {
   final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
   final body = {'username': username, 'password': password};
-
+  
   final response = await http.post(
     url,
     headers: headers,
