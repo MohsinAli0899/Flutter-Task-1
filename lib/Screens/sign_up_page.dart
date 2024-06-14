@@ -1,3 +1,4 @@
+import 'package:api_integration_python/api/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
@@ -24,8 +25,32 @@ class _SignUpPageState extends State<SignUpPage> {
   void togglePasswordVisibility() {
     setState(() {
       showText = !showText;
-      setState(() {});
     });
+  }
+
+  void registerUser() async {
+    if (_formKey.currentState!.validate()) {
+      checkEmail(); // Validate email
+      if (isEmailVerified) {
+        final response =
+            await signUp(_usernameController.text, _passwordController.text);
+
+        if (response['success']) {
+          // Successfully registered
+          ScaffoldMessenger.of(mounted ? context : context).showSnackBar(
+            const SnackBar(content: Text('Registration Successful')),
+          );
+          Navigator.pop(mounted
+              ? context
+              : context); // If email is verified, pop the page
+        } else {
+          // Failed registration
+          ScaffoldMessenger.of(mounted ? context : context).showSnackBar(
+            SnackBar(content: Text(response['message'])),
+          );
+        }
+      }
+    }
   }
 
   @override
@@ -133,15 +158,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 30,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      checkEmail(); // Validate email
-                      if (isEmailVerified) {
-                        Navigator.pop(
-                            context); // If email is verified, pop the page
-                      }
-                    }
-                  },
+                  onPressed: registerUser,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red, // Background color
                     foregroundColor: Colors.white, // Text color
@@ -154,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           BorderRadius.circular(16), // Rounded corners
                     ),
                   ),
-                  key: const ValueKey('registerButton'),
+                  key: const ValueKey('signUpButton'),
                   child: const Text(
                     'Register',
                     style: TextStyle(

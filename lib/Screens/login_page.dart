@@ -1,6 +1,7 @@
 import 'package:api_integration_python/widgets/login_page_widgets/forgot_password.dart';
 import 'package:api_integration_python/widgets/login_page_widgets/login_button.dart';
 import 'package:api_integration_python/widgets/login_page_widgets/sign_up_button.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -80,6 +81,7 @@ class UserPassField extends StatefulWidget {
 
 class _UserPassFieldState extends State<UserPassField> {
   bool showText = true;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   void togglePasswordVisibility() {
     setState(() {
@@ -89,69 +91,97 @@ class _UserPassFieldState extends State<UserPassField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 80),
-        TextField(
-          controller: widget.usernameController,
-          decoration: InputDecoration(
-            suffixIcon: const Icon(Icons.person),
-            fillColor: Colors.white,
-            filled: true,
-            labelText: 'Username',
-            labelStyle: const TextStyle(
-              color: Colors.black,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.red),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.red, width: 2.0),
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
-        ),
-        const SizedBox(height: 16.0),
-        TextField(
-          controller: widget.passwordController,
-          decoration: InputDecoration(
-            suffixIcon: IconButton(
-              icon: Icon(
-                showText ? Icons.visibility : Icons.visibility_off,
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          const SizedBox(height: 80),
+          TextFormField(
+            controller: widget.usernameController,
+            decoration: InputDecoration(
+              suffixIcon: const Icon(Icons.person),
+              fillColor: Colors.white,
+              filled: true,
+              labelText: 'Enter your mail address',
+              labelStyle: const TextStyle(
+                color: Colors.black,
               ),
-              onPressed: () {
-                togglePasswordVisibility();
-              },
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red, width: 2.0),
+                borderRadius: BorderRadius.circular(16),
+              ),
             ),
-            fillColor: Colors.white,
-            filled: true,
-            labelText: 'Password',
-            labelStyle: const TextStyle(
-              color: Colors.black,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.red),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.red, width: 2.0),
-              borderRadius: BorderRadius.circular(16),
-            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Email cannot be empty';
+              } else if (!EmailValidator.validate(value)) {
+                return 'Please enter a valid email address';
+              }
+              return null;
+            },
           ),
-          obscureText: showText,
-        ),
-        const ForgotPassword(),
-        const SizedBox(height: 30),
-        LoginButton(
-          usernameController: widget.usernameController,
-          passwordController: widget.passwordController,
-        ),
-        const SizedBox(
-          height: 7,
-        ),
-        const SignUpButton(),
-      ],
+          const SizedBox(height: 16.0),
+          TextFormField(
+            controller: widget.passwordController,
+            decoration: InputDecoration(
+              suffixIcon: IconButton(
+                icon: Icon(
+                  showText ? Icons.visibility : Icons.visibility_off,
+                ),
+                onPressed: () {
+                  togglePasswordVisibility();
+                },
+              ),
+              fillColor: Colors.white,
+              filled: true,
+              labelText: 'Password',
+              labelStyle: const TextStyle(
+                color: Colors.black,
+              ),
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(color: Colors.red, width: 2.0),
+                borderRadius: BorderRadius.circular(16),
+              ),
+            ),
+            obscureText: showText,
+            validator: (password) {
+              if (password == null || password.isEmpty) {
+                return "Password can't be empty";
+              } else if (password.length < 6) {
+                return "Password length should be at least 6 characters";
+              }
+              return null;
+            },
+          ),
+          const ForgotPassword(),
+          const SizedBox(height: 30),
+          LoginButton(
+            usernameController: widget.usernameController,
+            passwordController: widget.passwordController,
+            formKey: _formKey,
+          ),
+          const SizedBox(
+            height: 7,
+          ),
+          const SignUpButton(),
+        ],
+      ),
     );
   }
 }

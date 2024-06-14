@@ -7,11 +7,14 @@ import 'package:flutter/material.dart';
 class LoginButton extends StatefulWidget {
   final TextEditingController usernameController;
   final TextEditingController passwordController;
+  final GlobalKey<FormState> formKey;
 
-  const LoginButton(
-      {super.key,
-      required this.usernameController,
-      required this.passwordController});
+  const LoginButton({
+    super.key,
+    required this.usernameController,
+    required this.passwordController,
+    required this.formKey,
+  });
 
   @override
   _LoginButtonState createState() => _LoginButtonState();
@@ -22,9 +25,10 @@ class _LoginButtonState extends State<LoginButton> {
   bool isEmptyTextField = true;
 
   void _login(BuildContext context) async {
-    final username = widget.usernameController.text;
-    final password = widget.passwordController.text;
-    if (username.isNotEmpty && password.isNotEmpty) {
+    if (widget.formKey.currentState!.validate()) {
+      final username = widget.usernameController.text;
+      final password = widget.passwordController.text;
+
       setState(() {
         _isLoading = true;
       });
@@ -42,11 +46,6 @@ class _LoginButtonState extends State<LoginButton> {
       if (result['Prompt'] == 'Access Granted') {
         Navigator.pushNamed(context, MyRoutes.homeRoute);
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text("Username or Password field Can't be empty")),
-      );
     }
   }
 
@@ -58,13 +57,6 @@ class _LoginButtonState extends State<LoginButton> {
           ? const CircularProgressIndicator()
           : ElevatedButton(
               onPressed: () => _login(context),
-              // Navigate to the home page when the button is clicked
-
-              // Navigator.pushNamed(
-              //   context,
-              //   MyRoutes.homeRoute,
-              // );
-
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.red, // Background color
                 foregroundColor: Colors.white, // Text color
