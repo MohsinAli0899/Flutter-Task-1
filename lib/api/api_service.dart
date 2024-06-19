@@ -100,17 +100,16 @@ Future<Map<String, dynamic>> signUp(String username, String password) async {
     headers: headers,
     body: body,
   );
-  print(response.statusCode);
-
+ 
   if (response.statusCode == 200) {
     return {
       "success": true,
-      "message": jsonDecode(response.body)['message'],
+      "Prompt": jsonDecode(response.body)['Prompt'],
     };
   } else {
     return {
       "success": false,
-      "message": jsonDecode(response.body)['message'],
+      "Prompt": jsonDecode(response.body)['Prompt'],
     };
   }
 }
