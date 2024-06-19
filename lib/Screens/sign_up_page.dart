@@ -38,7 +38,7 @@ class _SignUpPageState extends State<SignUpPage> {
         if (response["Prompt"] == "User Created Succesfully") {
           // Successfully registered
           ScaffoldMessenger.of(mounted ? context : context).showSnackBar(
-            const SnackBar(content: Text('Prompt')),
+            const SnackBar(content: Text('Registration Successful')),
           );
           Navigator.pop(mounted
               ? context
