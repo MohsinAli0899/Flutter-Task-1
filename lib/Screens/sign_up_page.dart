@@ -35,7 +35,7 @@ class _SignUpPageState extends State<SignUpPage> {
         final response =
             await signUp(_usernameController.text, _passwordController.text);
 
-        if (response['success']) {
+        if (response['Prompt'] == "User Created Succesfully") {
           // Successfully registered
           ScaffoldMessenger.of(mounted ? context : context).showSnackBar(
             const SnackBar(content: Text('Registration Successful')),
@@ -46,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
         } else {
           // Failed registration
           ScaffoldMessenger.of(mounted ? context : context).showSnackBar(
-            SnackBar(content: Text(response['message'])),
+            SnackBar(content: Text(response['Prompt'])),
           );
         }
       }

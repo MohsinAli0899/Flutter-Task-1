@@ -94,7 +94,7 @@ Future<Map<String, dynamic>> signUp(String username, String password) async {
   final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
   final body = {'username': username, 'password': password};
-  
+
   final response = await http.post(
     url,
     headers: headers,
@@ -103,12 +103,12 @@ Future<Map<String, dynamic>> signUp(String username, String password) async {
   if (response.statusCode == 200) {
     return {
       "success": true,
-      "message": jsonDecode(response.body)['message'],
+      "Prompt": jsonDecode(response.body)['Prompt'],
     };
   } else {
     return {
       "success": false,
-      "message": jsonDecode(response.body)['message'],
+      "Prompt": jsonDecode(response.body)['Prompt'],
     };
   }
 }

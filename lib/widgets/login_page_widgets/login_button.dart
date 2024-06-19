@@ -43,7 +43,7 @@ class _LoginButtonState extends State<LoginButton> {
         SnackBar(content: Text(result['Prompt'])),
       );
 
-      if (result['Prompt'] == 'Access Granted') {
+      if (result['Prompt'] == 'Login Successful') {
         Navigator.pushNamed(context, MyRoutes.homeRoute);
       }
     }
