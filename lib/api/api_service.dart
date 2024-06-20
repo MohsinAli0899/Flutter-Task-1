@@ -59,27 +59,22 @@
 //   }
 // }
 
-// LOGIN API ----------------------------------*************************
-
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-Future<Map<String, dynamic>> login(String username, String password) async {
-  final url = Uri.parse('http://127.0.0.1:5000/user/login');
-  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-  final body = {'username': username, 'password': password};
+Future<Map<String, dynamic>> login(String email, String password) async {
+  final url = Uri.parse('https://flask-login-mu.vercel.app/user/login');
+  // Constructing the URL with query parameters for GET request
+  final loginUrl = Uri.https(url.authority, url.path, {'email': email, 'password': password});
 
-  final response = await http.post(
-    url,
-    headers: headers,
-    body: body,
-  );
+  final response = await http.get(loginUrl);
   if (response.statusCode == 200) {
     return {
       "success": true,
       "Prompt": jsonDecode(response.body)['Prompt'],
     };
   } else {
+    print("Login failed with status code ${response.statusCode}: ${response.body}");
     return {
       "success": false,
       "Prompt": jsonDecode(response.body)['Prompt'],
@@ -87,13 +82,10 @@ Future<Map<String, dynamic>> login(String username, String password) async {
   }
 }
 
-// SIGN UP API ----------------------------------****************************
-
-Future<Map<String, dynamic>> signUp(String username, String password) async {
-  final url = Uri.parse('http://127.0.0.1:5000/user/addone');
-  final headers = {'Content-Type': 'application/x-www-form-urlencoded'};
-
-  final body = {'username': username, 'password': password};
+Future<Map<String, dynamic>> signUp(String email, String password) async {
+  final url = Uri.parse('https://flask-login-mu.vercel.app/user/addone');
+  final headers = {'Content-Type': 'application/json'};
+  final body = jsonEncode({'email': email, 'password': password});
 
   final response = await http.post(
     url,
@@ -101,15 +93,19 @@ Future<Map<String, dynamic>> signUp(String username, String password) async {
     body: body,
   );
  
-  if (response.statusCode == 200) {
+  if (response.statusCode == 201) {
     return {
       "success": true,
       "Prompt": jsonDecode(response.body)['Prompt'],
     };
   } else {
+    print("Sign-up failed with status code ${response.statusCode}: ${response.body}");
     return {
       "success": false,
       "Prompt": jsonDecode(response.body)['Prompt'],
     };
   }
 }
+
+
+
