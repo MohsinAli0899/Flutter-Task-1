@@ -59,31 +59,44 @@
 //   }
 // }
 
+//LOGIN SENDING GET REQUEST ---------------------
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> login(String email, String password) async {
-  final url = Uri.parse('https://flask-login-mu.vercel.app/user/login');
-  // Constructing the URL with query parameters for GET request
-  final loginUrl = Uri.https(url.authority, url.path, {'email': email, 'password': password});
+  final url = Uri.parse('https://flask-login-three.vercel.app/user/login');
+  final headers = {
+    'Content-Type': 'application/json',
+  };
+  final body = jsonEncode({'email': email, 'password': password});
 
-  final response = await http.get(loginUrl);
+  // Attempt to send the body with a GET request
+  final client = http.Client();
+  final request = http.Request('GET', url)
+    ..headers.addAll(headers)
+    ..body = body;
+
+  final response = await client.send(request);
+  final responseBody = await response.stream.bytesToString();
+
   if (response.statusCode == 200) {
     return {
       "success": true,
-      "Prompt": jsonDecode(response.body)['Prompt'],
+      "Prompt": jsonDecode(responseBody)['Prompt'],
     };
   } else {
-    print("Login failed with status code ${response.statusCode}: ${response.body}");
     return {
       "success": false,
-      "Prompt": jsonDecode(response.body)['Prompt'],
+      "Prompt": jsonDecode(responseBody)['Prompt'],
     };
   }
 }
 
+// SIGN UP API ----------------------------------****************************
+
 Future<Map<String, dynamic>> signUp(String email, String password) async {
-  final url = Uri.parse('https://flask-login-mu.vercel.app/user/addone');
+  final url = Uri.parse('https://flask-login-three.vercel.app/user/addone');
   final headers = {'Content-Type': 'application/json'};
   final body = jsonEncode({'email': email, 'password': password});
 
@@ -92,14 +105,13 @@ Future<Map<String, dynamic>> signUp(String email, String password) async {
     headers: headers,
     body: body,
   );
- 
+
   if (response.statusCode == 201) {
     return {
       "success": true,
       "Prompt": jsonDecode(response.body)['Prompt'],
     };
   } else {
-    print("Sign-up failed with status code ${response.statusCode}: ${response.body}");
     return {
       "success": false,
       "Prompt": jsonDecode(response.body)['Prompt'],
@@ -109,3 +121,40 @@ Future<Map<String, dynamic>> signUp(String email, String password) async {
 
 
 
+
+
+
+
+
+
+
+
+
+// LOGIN API WHEN SENDING POST REQUEST----------------------------------*************************
+
+// import 'dart:convert';
+// import 'package:http/http.dart' as http;
+
+// Future<Map<String, dynamic>> login(String email, String password) async {
+//   final url = Uri.parse('http://127.0.0.1:5000/user/login');
+//   final headers = {'Content-Type': 'application/json'};
+//   final body = jsonEncode({'email': email, 'password': password});
+
+//   final response = await http.post(
+//     url,
+//     headers: headers,
+//     body: body,
+//   );
+
+//   if (response.statusCode == 200) {
+//     return {
+//       "success": true,
+//       "Prompt": jsonDecode(response.body)['Prompt'],
+//     };
+//   } else {
+//     return {
+//       "success": false,
+//       "Prompt": jsonDecode(response.body)['Prompt'],
+//     };
+//   }
+// }
