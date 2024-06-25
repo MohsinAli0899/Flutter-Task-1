@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:api_integration_python/widgets/drawer.dart';
+import 'package:api_integration_python/utils/drawer.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,24 +12,27 @@ class HomePage extends StatelessWidget {
         title: const Text("Home Page"),
         backgroundColor: Colors.blue,
         elevation: 0.5,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.black, 
-          onPressed: () {
-            SystemNavigator.pop(); // Close the app
-          },
-        ),
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.menu),
-              color: Colors.black,
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-            ),
-          ),
-        ],
+
+        // COMMENTED OUT BECAUSE WE DON"T NEED BACK BUTTON IN HOME PAGE
+
+        // // leading: IconButton(
+        // //   icon: const Icon(Icons.arrow_back),
+        // //   color: Colors.black,
+        // //   onPressed: () {
+        // //     SystemNavigator.pop(); // Close the app
+        // //   },
+        // ),
+        // actions: [
+        //   Builder(
+        //     builder: (context) => IconButton(
+        //       icon: const Icon(Icons.menu),
+        //       color: Colors.black,
+        //       onPressed: () {
+        //         Scaffold.of(context).openDrawer();
+        //       },
+        //     ),
+        //   ),
+        // ],
       ),
       body: const Center(
         child: Column(
@@ -55,7 +57,7 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      endDrawer: const MyDrawer(),
+      drawer: const MyDrawer(),
     );
   }
 }
