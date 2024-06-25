@@ -169,7 +169,7 @@ class _UserPassFieldState extends State<UserPassField> {
               return null;
             },
           ),
-          const ForgotPassword(),
+          const ForgotPasswordButton(),
           const SizedBox(height: 30),
           LoginButton(
             usernameController: widget.usernameController,

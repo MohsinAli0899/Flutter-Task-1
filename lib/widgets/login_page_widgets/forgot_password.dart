@@ -1,20 +1,28 @@
+import 'package:api_integration_python/Screens/forgot_password.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+class ForgotPasswordButton extends StatefulWidget {
+  const ForgotPasswordButton({super.key});
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<ForgotPasswordButton> createState() => _ForgotPasswordButtonState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotPasswordButtonState extends State<ForgotPasswordButton> {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ForgotPasswordPage(),
+              ),
+            );
+          },
           child: const Text(
             'Forgot Password?',
             style: TextStyle(
