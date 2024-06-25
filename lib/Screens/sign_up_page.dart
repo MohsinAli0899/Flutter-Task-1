@@ -13,6 +13,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool showText = true;
+  bool isLoading = false;
 
   final _formKey = GlobalKey<FormState>();
   bool isEmailVerified = false;
@@ -32,13 +33,21 @@ class _SignUpPageState extends State<SignUpPage> {
     if (_formKey.currentState!.validate()) {
       checkEmail(); // Validate email
       if (isEmailVerified) {
+        setState(() {
+          isLoading = true;
+        });
         final response =
             await signUp(_usernameController.text, _passwordController.text);
-
-        if (response["Prompt"] == "A confirmation email has been sent to registered Email") {
+        setState(() {
+          isLoading = false;
+        });
+        if (response["Prompt"] ==
+            "A confirmation email has been sent to registered Email") {
           // Successfully registered
           ScaffoldMessenger.of(mounted ? context : context).showSnackBar(
-            const SnackBar(content: Text('A confirmation email has been sent to registered Email')),
+            const SnackBar(
+                content: Text(
+                    'A confirmation email has been sent to registered Email')),
           );
           Navigator.pop(mounted
               ? context
@@ -70,6 +79,11 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Image.asset(
+                  "assets/images/register.png",
+                  width: 200,
+                  height: 200,
+                ),
                 const Text(
                   "Register Here",
                   style: TextStyle(
@@ -157,29 +171,31 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedBox(
                   height: 30,
                 ),
-                ElevatedButton(
-                  onPressed: registerUser,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red, // Background color
-                    foregroundColor: Colors.white, // Text color
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(16), // Rounded corners
-                    ),
-                  ),
-                  key: const ValueKey('signUpButton'),
-                  child: const Text(
-                    'Register',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                isLoading
+                    ? const CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: registerUser,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red, // Background color
+                          foregroundColor: Colors.white, // Text color
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                            vertical: 10,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(16), // Rounded corners
+                          ),
+                        ),
+                        key: const ValueKey('signUpButton'),
+                        child: const Text(
+                          'Register',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),
