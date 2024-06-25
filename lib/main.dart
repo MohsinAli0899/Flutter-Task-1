@@ -1,7 +1,7 @@
 import 'package:api_integration_python/Screens/home_page.dart';
 import 'package:api_integration_python/Screens/login_page.dart';
 import 'package:api_integration_python/utils/routes.dart';
-import 'package:api_integration_python/widgets/themes.dart';
+import 'package:api_integration_python/utils/themes.dart';
 import 'package:flutter/material.dart';
 
 void main() {

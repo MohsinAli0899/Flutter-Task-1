@@ -23,20 +23,20 @@ class MyDrawer extends StatelessWidget {
                     backgroundImage: NetworkImage(imageUrl),
                   ),
                   decoration: BoxDecoration(
-                  color:  Colors.blue,
-                ),
+                    color: Colors.blue,
+                  ),
                 )),
             ListTile(
               title: Text(
                 "Logout",
-                textScaleFactor: 1.2,
+                textScaler: TextScaler.linear(1.2),
                 style: TextStyle(color: Colors.white),
               ),
             ),
             ListTile(
               title: Text(
                 "Delete Account",
-                textScaleFactor: 1.2,
+                textScaler: TextScaler.linear(1.2),
                 style: TextStyle(color: Colors.white),
               ),
             ),
