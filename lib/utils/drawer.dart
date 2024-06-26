@@ -3,6 +3,7 @@
 import 'package:api_integration_python/Screens/login_page.dart';
 import 'package:api_integration_python/api/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MyDrawer extends StatelessWidget {
   final String email;
@@ -69,6 +70,15 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
+  void _logout(BuildContext context) {
+    // Navigate to the login page
+    Navigator.of(context, rootNavigator: true).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => LoginPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var username = email.substring(0, email.indexOf('@'));
@@ -94,11 +104,16 @@ class MyDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            const ListTile(
-              title: Text(
-                "Logout",
-                textScaler: TextScaler.linear(1.2),
-                style: TextStyle(color: Colors.white),
+            ListTile(
+              title: GestureDetector(
+                onTap: () {
+                  _logout(context);
+                },
+                child: const Text(
+                  "Logout",
+                  textScaler: TextScaler.linear(1.2),
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
             ListTile(
