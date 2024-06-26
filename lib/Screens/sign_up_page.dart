@@ -45,9 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
             "A confirmation email has been sent to registered Email") {
           // Successfully registered
           ScaffoldMessenger.of(mounted ? context : context).showSnackBar(
-            const SnackBar(
-                content: Text(
-                    'A confirmation email has been sent to registered Email')),
+            SnackBar(content: Text(response["Prompt"])),
           );
           Navigator.pop(mounted
               ? context

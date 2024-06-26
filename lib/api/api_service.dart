@@ -118,3 +118,29 @@ Future<Map<String, dynamic>> signUp(String email, String password) async {
     };
   }
 }
+
+// DELETE ACCOUNT API CALL
+
+Future<Map<String, dynamic>> deleteAccount(String email) async {
+  final url = Uri.parse('https://flask-login-three.vercel.app/user/delete');
+  final headers = {'Content-Type': 'application/json'};
+  final body = jsonEncode({'email': email});
+
+  final response = await http.delete(
+    url,
+    headers: headers,
+    body: body,
+  );
+
+  if (response.statusCode == 200) {
+    return {
+      "success": true,
+      "Prompt": jsonDecode(response.body)['Prompt'],
+    };
+  } else {
+    return {
+      "success": false,
+      "Prompt": jsonDecode(response.body)['Prompt'],
+    };
+  }
+}

@@ -44,7 +44,11 @@ class _LoginButtonState extends State<LoginButton> {
       );
 
       if (result['Prompt'] == 'Login Successful') {
-        Navigator.pushNamed(context, MyRoutes.homeRoute);
+        Navigator.pushNamed(
+          context,
+          MyRoutes.homeRoute,
+          arguments: username,
+        );
       }
     }
   }
