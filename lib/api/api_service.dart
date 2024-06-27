@@ -176,16 +176,23 @@ Future<Map<String, dynamic>> forgetPassword(String email) async {
     headers: headers,
     body: body,
   );
-
-  if (response.statusCode == 200) {
-    return {
-      "success": true,
-      "Prompt": jsonDecode(response.body)['Prompt'],
-    };
-  } else {
+  
+try {
+    if (response.statusCode == 200) {
+      return {
+        "success": true,
+        "Prompt": jsonDecode(response.body)['Prompt'],
+      };
+    } else {
+      return {
+        "success": false,
+        "Prompt": jsonDecode(response.body)['Prompt'],
+      };
+    }
+  } catch (e) {
     return {
       "success": false,
-      "Prompt": jsonDecode(response.body)['Prompt'],
+      "Prompt": "Server is down please try again later",
     };
   }
 }
