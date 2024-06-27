@@ -66,29 +66,34 @@ import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> login(String email, String password) async {
   final url = Uri.parse('https://flask-login-three.vercel.app/user/login');
-  final headers = {
-    'Content-Type': 'application/json',
-  };
+  final headers = {'Content-Type': 'application/json'};
+
   final body = jsonEncode({'email': email, 'password': password});
 
-  // Attempt to send the body with a GET request
-  final client = http.Client();
-  final request = http.Request('GET', url)
-    ..headers.addAll(headers)
-    ..body = body;
+  final response = await http.post(
+    url,
+    headers: headers,
+    body: body,
+  );
 
-  final response = await client.send(request);
-  final responseBody = await response.stream.bytesToString();
+  // Attempt to send the body with a GET request
+  // final client = http.Client();
+  // final request = http.Request('GET', url)
+  //   ..headers.addAll(headers)
+  //   ..body = body;
+
+  // final response = await client.send(request);
+  // final responseBody = await response.stream.bytesToString();
 
   if (response.statusCode == 200) {
     return {
       "success": true,
-      "Prompt": jsonDecode(responseBody)['Prompt'],
+      "Prompt": jsonDecode(response.body)['Prompt'],
     };
   } else {
     return {
       "success": false,
-      "Prompt": jsonDecode(responseBody)['Prompt'],
+      "Prompt": jsonDecode(response.body)['Prompt'],
     };
   }
 }
@@ -127,6 +132,32 @@ Future<Map<String, dynamic>> deleteAccount(String email) async {
   final body = jsonEncode({'email': email});
 
   final response = await http.delete(
+    url,
+    headers: headers,
+    body: body,
+  );
+
+  if (response.statusCode == 200) {
+    return {
+      "success": true,
+      "Prompt": jsonDecode(response.body)['Prompt'],
+    };
+  } else {
+    return {
+      "success": false,
+      "Prompt": jsonDecode(response.body)['Prompt'],
+    };
+  }
+}
+
+// FORGET PASSWORD API CALL
+
+Future<Map<String, dynamic>> forgetPassword(String email) async {
+  final url = Uri.parse('https://flask-login-three.vercel.app/user/forgotpass');
+  final headers = {'Content-Type': 'application/json'};
+  final body = jsonEncode({'email': email});
+
+  final response = await http.post(
     url,
     headers: headers,
     body: body,
