@@ -85,15 +85,22 @@ Future<Map<String, dynamic>> login(String email, String password) async {
   // final response = await client.send(request);
   // final responseBody = await response.stream.bytesToString();
 
-  if (response.statusCode == 200) {
-    return {
-      "success": true,
-      "Prompt": jsonDecode(response.body)['Prompt'],
-    };
-  } else {
+  try {
+    if (response.statusCode == 200) {
+      return {
+        "success": true,
+        "Prompt": jsonDecode(response.body)['Prompt'],
+      };
+    } else {
+      return {
+        "success": false,
+        "Prompt": jsonDecode(response.body)['Prompt'],
+      };
+    }
+  } catch (e) {
     return {
       "success": false,
-      "Prompt": jsonDecode(response.body)['Prompt'],
+      "Prompt": "Server is down please try again later",
     };
   }
 }
@@ -111,15 +118,22 @@ Future<Map<String, dynamic>> signUp(String email, String password) async {
     body: body,
   );
 
-  if (response.statusCode == 201) {
-    return {
-      "success": true,
-      "Prompt": jsonDecode(response.body)['Prompt'],
-    };
-  } else {
+  try {
+    if (response.statusCode == 201) {
+      return {
+        "success": true,
+        "Prompt": jsonDecode(response.body)['Prompt'],
+      };
+    } else {
+      return {
+        "success": false,
+        "Prompt": jsonDecode(response.body)['Prompt'],
+      };
+    }
+  } catch (e) {
     return {
       "success": false,
-      "Prompt": jsonDecode(response.body)['Prompt'],
+      "Prompt": "Server is down please try again later",
     };
   }
 }
