@@ -65,7 +65,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<Map<String, dynamic>> login(String email, String password) async {
-  final url = Uri.parse('https://flask-login-rho.vercel.app/user/login');
+  final url = Uri.parse('https://flask-login-three.vercel.app/user/login');
   final headers = {'Content-Type': 'application/json'};
 
   final body = jsonEncode({'email': email, 'password': password});
@@ -108,7 +108,7 @@ Future<Map<String, dynamic>> login(String email, String password) async {
 // SIGN UP API ----------------------------------****************************
 
 Future<Map<String, dynamic>> signUp(String email, String password) async {
-  final url = Uri.parse('https://flask-login-rho.vercel.app/user/addone');
+  final url = Uri.parse('https://flask-login-three.vercel.app/user/addone');
   final headers = {'Content-Type': 'application/json'};
   final body = jsonEncode({'email': email, 'password': password});
 
@@ -141,7 +141,7 @@ Future<Map<String, dynamic>> signUp(String email, String password) async {
 // DELETE ACCOUNT API CALL
 
 Future<Map<String, dynamic>> deleteAccount(String email) async {
-  final url = Uri.parse('https://flask-login-rho.vercel.app/user/delete');
+  final url = Uri.parse('https://flask-login-three.vercel.app/user/delete');
   final headers = {'Content-Type': 'application/json'};
   final body = jsonEncode({'email': email});
 
@@ -167,7 +167,7 @@ Future<Map<String, dynamic>> deleteAccount(String email) async {
 // FORGET PASSWORD API CALL
 
 Future<Map<String, dynamic>> forgetPassword(String email) async {
-  final url = Uri.parse('https://flask-login-rho.vercel.app/user/forgotpass');
+  final url = Uri.parse('https://flask-login-three.vercel.app/user/forgotpass');
   final headers = {'Content-Type': 'application/json'};
   final body = jsonEncode({'email': email});
 
@@ -176,7 +176,7 @@ Future<Map<String, dynamic>> forgetPassword(String email) async {
     headers: headers,
     body: body,
   );
-  
+
 try {
     if (response.statusCode == 200) {
       return {
