@@ -1,6 +1,7 @@
-// lib/features/auth/forgot_password_page.dart
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:api_integration_python/Screens/login_page.dart';
+import 'package:api_integration_python/api/api_service.dart';
 import 'package:api_integration_python/widgets/forgot_password_widgets/reset_password_button.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
@@ -23,23 +24,37 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.dispose();
   }
 
-  void resetPassword() {
+  void resetPassword() async {
     if (_formKey.currentState!.validate()) {
       setState(() {
         isLoading = true;
       });
 
-      final email = emailController.text;
+      final response = await forgetPassword(emailController.text);
+      if (!mounted) return; // Add this check
+
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Password reset link sent to $email'),
+        content: Text(response['Prompt']),
       ));
 
-      // Simulate a delay for demonstration purposes
-      Future.delayed(const Duration(seconds: 2), () {
+      if (response['success']) {
+        Future.delayed(const Duration(seconds: 1), () {
+          if (!mounted) return; // Add this check
+          setState(() {
+            isLoading = false;
+          });
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginPage(),
+            ),
+          );
+        });
+      } else {
         setState(() {
           isLoading = false;
         });
-      });
+      }
     }
   }
 

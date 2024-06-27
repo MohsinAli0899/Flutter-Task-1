@@ -3,7 +3,6 @@
 import 'package:api_integration_python/Screens/login_page.dart';
 import 'package:api_integration_python/api/api_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class MyDrawer extends StatelessWidget {
   final String email;
@@ -77,6 +76,8 @@ class MyDrawer extends StatelessWidget {
         builder: (context) => LoginPage(),
       ),
     );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("Logged Out Successfully")));
   }
 
   @override
