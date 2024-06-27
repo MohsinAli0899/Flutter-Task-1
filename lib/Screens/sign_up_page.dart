@@ -79,8 +79,8 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 Image.asset(
                   "assets/images/register.png",
-                  width: 200,
-                  height: 200,
+                  width: 170,
+                  height: 170,
                 ),
                 const Text(
                   "Register Here",
