@@ -38,11 +38,12 @@ class HomePage extends StatelessWidget {
       ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: const Center(
+        child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
+              Image.asset("assets/images/welcome.png", width: 400, height: 350),
+              const Text(
                 "Login Successful",
                 style: TextStyle(
                   color: Colors.black,
@@ -50,7 +51,7 @@ class HomePage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
+              const Text(
                 "Welcome to Mintways App",
                 style: TextStyle(
                   color: Colors.black,
